@@ -1,69 +1,19 @@
 #include <iostream>
+
+#include "poly_term.h"
+#include "poly.h"
+#include "spmatrix_term.h"
+#include "spmatrix.h"
+#include "list.h"
+
 using namespace std;
 
 #define polynomialsize 100  //設定一個裝所有多項式的矩陣的大小
 
-//多項是的某一項
-class poly_term{
-    friend class poly;  //poly可以存取poly_term的東西
-  private:
-    float coef; //那一項的coefficient
-    float exp;  //那一項的exponent
-};//end poly_term
-//多項式的class
-class poly{
-  public:
-    poly();                                     //construct
-    void SetValue(int b, float c[]);            //設定初始值
-    void AddValue(poly a, int b, float c[]);    //在原本的多項式後面加上其他的多項式
-    void Output();                              //輸出值
-    poly Add(poly b);                           //加poly B
-    int Compare(float a, float b);              //比較a,b大小
-  private:
-    int Start;  //poly的起始array index
-    int Finish; //poly的結束array index
-    int Free;   //空的array的index
-    int NumberOfIndex; //多項式有多少項(finish-start+1)
-};//end poly
 
 //宣告一個全域變數，用來存所有的poly
 poly_term array[polynomialsize];
 
-//稀疏矩陣的某一項
-class spmatrix_term{
-    friend class spmatrix;  //spmatrix可以存取spmatrix_term的東西
-  private:
-    int row;   //第row列
-    int col;   //第col行
-    int value; //值是value
-};//end term
-
-//稀疏矩陣的class
-class spmatrix{
-  public:
-    spmatrix(int a, int b, int c); //construct
-    void SetValue(int d[]); //設定初始值
-    void FullOutput();  //印出完整矩陣
-    spmatrix Transpose();       //轉置矩陣行和列互喚
-    spmatrix Multi(spmatrix a);       //matrix 相乘
-    void ChangeSize(int size);  //  spmatrix 有值的個數改變
-  private:
-    int Rows;               //matrix的列數
-    int Cols;               //matrix的行數
-    int NumberOfNonZeroValue;   //matrix裡面非零的值的個數
-    spmatrix_term *spmArray; //裝有稀疏矩陣的陣列動態矩陣！
-};//end spmatrix
-
-//merge sort的list 的class
-class list{
-    public:
-        list(int a[],int b);//construct
-        list merge(list b); //this和b做merge sort
-        void Output();//print list
-    private:
-        int *listArray;//list的陣列，這邊是用動態陣列，所以是設指標
-        int length;//list的長度
-}; //end list
 
 list::list(int a[],int b){
     listArray = new int[b]; //動態陣列
